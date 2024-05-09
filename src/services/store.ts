@@ -21,10 +21,10 @@ const rootReducer = combineReducers({
 
 const store = configureStore({
   reducer: rootReducer
-  // devTools: process.env.NODE_ENV !== 'production'
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
+
 type TApplicationActions = any;
 
 export type AppThunk<Return = void> = ThunkAction<
@@ -33,6 +33,7 @@ export type AppThunk<Return = void> = ThunkAction<
   unknown,
   TApplicationActions
 >;
+
 export type AppDispatch = ThunkDispatch<RootState, never, TApplicationActions>;
 
 export const useDispatch = () => dispatchHook<AppDispatch>();

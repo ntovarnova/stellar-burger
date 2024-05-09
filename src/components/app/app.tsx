@@ -1,8 +1,13 @@
-import { ConstructorPage } from '@pages';
 import '../../index.css';
 import styles from './app.module.css';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import { AppHeader, OrderInfo, Modal, IngredientDetails } from '@components';
+import {
+  AppHeader,
+  OrderInfo,
+  Modal,
+  IngredientDetails
+  //ProtectedRoute
+} from '@components';
 import { ProtectedRoute } from '../protected-route';
 import { useEffect } from 'react';
 import {
@@ -13,7 +18,8 @@ import {
   ResetPassword,
   Profile,
   ProfileOrders,
-  NotFound404
+  NotFound404,
+  ConstructorPage
 } from '@pages';
 import { useDispatch } from '../../services/store';
 import { getIngredientsThunk } from '../../services/slices/ingredientsSlice';
@@ -35,6 +41,8 @@ const App = () => {
       <Routes location={background}>
         <Route path='/' element={<ConstructorPage />} />
         <Route path='/feed' element={<Feed />} />
+        <Route path='/feed/:number' element={<OrderInfo />} />
+        <Route path='/ingredients/:id' element={<IngredientDetails />} />
         <Route
           path='/login'
           element={
@@ -83,8 +91,17 @@ const App = () => {
             </ProtectedRoute>
           }
         />
+        <Route
+          path='/profile/orders/:number'
+          element={
+            <ProtectedRoute>
+              <OrderInfo />
+            </ProtectedRoute>
+          }
+        />
         <Route path='*' element={<NotFound404 />} />
       </Routes>
+
       {background && (
         <Routes>
           <Route
