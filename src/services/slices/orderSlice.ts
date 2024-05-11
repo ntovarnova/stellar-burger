@@ -3,10 +3,6 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { orderBurgerApi } from '../../utils/burger-api';
 import { TOrder } from '../../utils/types';
 
-/**
- * Асинхронно формируем заказ
- * @param data Список _id всех интересующих ингредиентов
- */
 export const orderBurgerThunk = createAsyncThunk(
   'orders/postOrderBurger',
   async (data: string[]) => orderBurgerApi(data)
@@ -39,7 +35,7 @@ const orderSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-      // Формируем заказ
+
       .addCase(orderBurgerThunk.pending, (state) => {
         state.isOrderLoading = true;
       })

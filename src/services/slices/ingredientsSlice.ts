@@ -14,9 +14,6 @@ const initialState: IngredientsState = {
   error: null
 };
 
-/**
- * Асинхронно подгружаем все ингредиенты
- */
 export const getIngredientsThunk = createAsyncThunk(
   'ingredients/getIngredients',
   async () => getIngredientsApi()
@@ -32,7 +29,7 @@ const ingredientsSlice = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder
-      // Подгружаем все ингредиенты
+
       .addCase(getIngredientsThunk.pending, (state) => {
         state.isIngredientsLoading = true;
       })

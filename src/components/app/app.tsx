@@ -31,7 +31,6 @@ const App = () => {
   const navigate = useNavigate();
   const background = location.state?.background;
 
-  // Первоначальная загрузка данных
   useEffect(() => {
     dispatch(getIngredientsThunk());
     dispatch(getUserThunk());

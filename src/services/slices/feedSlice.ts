@@ -2,17 +2,10 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getFeedsApi, getOrderByNumberApi } from '../../utils/burger-api';
 import { TOrder } from '../../utils/types';
 
-/**
- * Асинхронно подгружаем все заказы из потока
- */
 export const getFeedsThunk = createAsyncThunk('feeds/getFeeds', async () =>
   getFeedsApi()
 );
 
-/**
- * Асинхронно подгружаем заказ по его номеру
- * @param number Номер интересуемого заказа
- */
 export const getOrderByNumberThunk = createAsyncThunk(
   'orders/getOrder',
   async (number: number) => getOrderByNumberApi(number)
@@ -52,7 +45,7 @@ const feedSlice = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder
-      // Подгружаем все заказы
+
       .addCase(getFeedsThunk.pending, (state) => {
         state.isFeedsLoading = true;
       })
@@ -67,7 +60,6 @@ const feedSlice = createSlice({
         state.totalToday = action.payload.totalToday;
       })
 
-      // Подгружаем конкретный заказ
       .addCase(getOrderByNumberThunk.pending, (state) => {
         state.isOrderLoading = true;
       })

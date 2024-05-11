@@ -19,17 +19,14 @@ export const ProtectedRoute = ({
   const loginUserRequest = useSelector(loginUserRequestSelector);
   const location = useLocation();
 
-  // В процессе подгрузки пользователя
   if (!isAuthChecked && loginUserRequest) {
     return <Preloader />;
   }
 
-  // Нужна авторизация
   if (!onlyUnAuth && !isAuthChecked) {
     return <Navigate replace to='/login' state={{ from: location }} />;
   }
 
-  // Мы авторизованы
   if (onlyUnAuth && isAuthChecked) {
     const from = location.state?.from || { pathname: '/' };
     return <Navigate replace to={from} state={location} />;

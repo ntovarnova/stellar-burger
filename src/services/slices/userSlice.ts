@@ -12,10 +12,6 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TOrder, TUser } from '../../utils/types';
 import { deleteCookie, setCookie } from '../../utils/cookie';
 
-/**
- * Асинхронно авторизуемся
- * @param data Логин и пароль для авторизации
- */
 export const loginUserThunk = createAsyncThunk(
   'users/loginUser',
   async (data: TLoginData) =>
@@ -26,9 +22,6 @@ export const loginUserThunk = createAsyncThunk(
     })
 );
 
-/**
- * Асинхронно снимаем авторизацию
- */
 export const logoutUserThunk = createAsyncThunk('users/logoutUser', async () =>
   logoutApi().then(() => {
     deleteCookie('accessToken');
@@ -36,17 +29,10 @@ export const logoutUserThunk = createAsyncThunk('users/logoutUser', async () =>
   })
 );
 
-/**
- * Асинхронно подгружаем данные пользователя
- */
 export const getUserThunk = createAsyncThunk('users/getUser', async () =>
   getUserApi()
 );
 
-/**
- * Асинхронно регистрируем пользователя на сервере
- * @param data Имя, логин и пароль пользователя
- */
 export const registerUserThunk = createAsyncThunk(
   'users/registerUser',
   async (data: TRegisterData) =>
@@ -57,18 +43,11 @@ export const registerUserThunk = createAsyncThunk(
     })
 );
 
-/**
- * Асинхронно обновляем данные пользователя
- * @param data Обновлённые имя, логин и пароль пользователя
- */
 export const updateUserThunk = createAsyncThunk(
   'users/updateUser',
   async (data: Partial<TRegisterData>) => updateUserApi(data)
 );
 
-/**
- * Асинхронно подгружаем историю заказов пользователя
- */
 export const getOrdersThunk = createAsyncThunk(
   'users/getUserOrders',
   async () => getOrdersApi()
@@ -114,7 +93,7 @@ const userSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-      // Авторизуемся
+
       .addCase(loginUserThunk.pending, (state) => {
         state.loginUserRequest = true;
         state.error = null;
@@ -129,14 +108,12 @@ const userSlice = createSlice({
         state.isAuthenticated = true;
       })
 
-      // Снимаем авторизацию
       .addCase(logoutUserThunk.pending, (state) => {
         state.user = null;
         state.loginUserRequest = false;
         state.isAuthenticated = false;
       })
 
-      // Подгружаем данные пользователя
       .addCase(getUserThunk.pending, (state) => {
         state.loginUserRequest = true;
       })
@@ -151,7 +128,6 @@ const userSlice = createSlice({
         state.isAuthenticated = true;
       })
 
-      // Регистрируем пользователя на сервере
       .addCase(registerUserThunk.pending, (state) => {
         state.isAuthenticated = false;
         state.loginUserRequest = true;
@@ -167,7 +143,6 @@ const userSlice = createSlice({
         state.isAuthenticated = true;
       })
 
-      // Обновляем данные пользователя
       .addCase(updateUserThunk.pending, (state) => {
         state.loginUserRequest = true;
       })
@@ -181,7 +156,6 @@ const userSlice = createSlice({
         state.isAuthenticated = true;
       })
 
-      // Подгружаем историю заказов пользователя
       .addCase(getOrdersThunk.pending, (state) => {
         state.ordersRequest = true;
       })

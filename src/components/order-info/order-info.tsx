@@ -8,7 +8,6 @@ import { getOrderByNumberThunk } from '../../services/slices/feedSlice';
 import { orderSelector } from '../../services/slices/feedSlice';
 import { ingredientsSelector } from '../../services/slices/ingredientsSlice';
 export const OrderInfo: FC = () => {
-  /** TODO: взять переменные orderData и ingredients из стора */
   const dispatch = useDispatch();
   const { number } = useParams();
 
@@ -19,7 +18,6 @@ export const OrderInfo: FC = () => {
   const orderData = useSelector(orderSelector);
   const ingredients = useSelector(ingredientsSelector);
 
-  /* Готовим данные для отображения */
   const orderInfo = useMemo(() => {
     if (!orderData || !ingredients.length) return null;
 
