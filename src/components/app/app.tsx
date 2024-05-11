@@ -1,35 +1,37 @@
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import '../../index.css';
 import styles from './app.module.css';
-import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+
 import {
   AppHeader,
-  OrderInfo,
+  IngredientDetails,
   Modal,
-  IngredientDetails
-  //ProtectedRoute
+  OrderInfo,
+  ProtectedRoute
 } from '@components';
-import { ProtectedRoute } from '../protected-route';
-import { useEffect } from 'react';
 import {
+  ConstructorPage,
   Feed,
-  Login,
-  Register,
   ForgotPassword,
-  ResetPassword,
+  Login,
+  NotFound404,
   Profile,
   ProfileOrders,
-  NotFound404,
-  ConstructorPage
+  Register,
+  ResetPassword
 } from '@pages';
+import { useEffect } from 'react';
 import { useDispatch } from '../../services/store';
 import { getIngredientsThunk } from '../../services/slices/ingredientsSlice';
 import { getUserThunk } from '../../services/slices/userSlice';
+
 const App = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
   const background = location.state?.background;
 
+  // Первоначальная загрузка данных
   useEffect(() => {
     dispatch(getIngredientsThunk());
     dispatch(getUserThunk());
@@ -133,4 +135,5 @@ const App = () => {
     </div>
   );
 };
+
 export default App;
